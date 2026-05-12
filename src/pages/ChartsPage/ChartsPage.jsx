@@ -1,157 +1,272 @@
-import { Box } from "@mui/material";
+import React from "react";
+import {
+  Box,
+  Typography,
+  Container,
+  Paper,
+  Button,
+  Grid,
+  Stack,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const pannaCharts = [
-  "STAR TARA DAY","NTR BAZAR","MILAN DAY","RAJDHANI DAY","ANDHRA DAY",
-  "KALYAN","MAHADEVI","NTR DAY","SITA NIGHT","SRIDEVI NIGHT",
-  "STAR TARA NIGHT","MAHADEVI NIGHT","MADHUR NIGHT","SUPREME NIGHT","ANDHRA NIGHT",
-  "NTR NIGHT","MILAN NIGHT","KALYAN NIGHT","RAJDHANI NIGHT","MAIN BAZAR",
-  "MANGAL BAZAR","NTR MORNING","SITA MORNING","KARNATAKA DAY","STAR TARA MORNING",
-  "MILAN MORNING","MAYA BAZAR","ANDHRA MORNING","SRIDEVI","MAHADEVI MORNING",
-  "TIME BAZAR","MADHUR DAY","SITA DAY"
+  "LAXMI MORNING",
+  "LAKSH MORNING",
+  "SANDHYA MORNING",
+  "SRIDEVI",
+  "TIME BAZAR",
+  "MADHUR DAY",
+  "LAXMI DAY",
+  "MILAN DAY",
+  "KALYAN NIGHT",
+  "RAJDHANI NIGHT",
+  "MAIN BAZAR",
+];
+
+const starlineCharts = [
+  "10:00 AM",
+  "11:00 AM",
+  "12:00 PM",
+  "1:00 PM",
+  "2:00 PM",
+];
+
+const jackpotCharts = [
+  "10:30 AM",
+  "11:30 AM",
+  "12:30 PM",
+  "01:30 PM",
+  "02:30 PM",
 ];
 
 export default function ChartsPage() {
-
   const navigate = useNavigate();
 
-  const ChartButton = ({ text, onClick }) => (
+  const chartBtnStyle = {
+    minWidth: "58px",
+    height: "34px",
+    borderRadius: "12px",
+    background: "#000",
+    color: "#fff",
+    textTransform: "none",
+    fontSize: "13px",
+    fontWeight: 700,
+    boxShadow: "none",
 
-    <Box
-      onClick={onClick}
+    "&:hover": {
+      background: "#111",
+      boxShadow: "none",
+    },
+  };
+
+  const ChartRow = ({ title }) => (
+    <Paper
+      elevation={0}
       sx={{
-        border: "2px solid #2f3e8f",
-        borderRadius: "12px",
-        padding: "10px",
-        textAlign: "center",
-        fontSize: "14px",
-        fontWeight: 600,
-        cursor: "pointer",
-        background: "#fff",
-        transition: "all .3s ease",
-        position: "relative",
-        overflow: "hidden",
-
-        "&:hover": {
-          transform: "translateY(-4px) scale(1.03)",
-          boxShadow: "0 10px 20px rgba(0,0,0,0.15)",
-          background: "#2f3e8f",
-          color: "#fff"
-        },
-
-        "&:active": {
-          transform: "scale(.95)"
-        }
+        p: { xs: 1.5, sm: 2 },
+        borderRadius: "14px",
+        border: "1px solid #d9d9d9",
+        background: "#ffffff",
       }}
     >
-      {text}
-    </Box>
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        spacing={2}
+      >
+        <Typography
+          sx={{
+            fontWeight: 700,
+            fontSize: {
+              xs: "13px",
+              sm: "15px",
+            },
+            color: "#111827",
+          }}
+        >
+          {title}
+        </Typography>
 
+        <Stack direction="row" spacing={1}>
+          <Button
+            sx={chartBtnStyle}
+            onClick={() =>
+              navigate(`/pana-chart/${title.toLowerCase().replace(/\s+/g, "-")}`)
+            }
+          >
+            Pana
+          </Button>
+
+          <Button
+            sx={chartBtnStyle}
+            onClick={() =>
+              navigate(`/jodi-chart/${title.toLowerCase().replace(/\s+/g, "-")}`)
+            }
+          >
+            Jodi
+          </Button>
+        </Stack>
+      </Stack>
+    </Paper>
   );
 
-  const SectionHeader = ({ title }) => (
-
-    <Box
+  const TimeChartCard = ({ title, subtitle, data, route }) => (
+    <Paper
+      elevation={0}
       sx={{
-        background: "#2f3e8f",
-        color: "#fff",
-        textAlign: "center",
-        padding: "10px",
-        fontWeight: 700,
-        letterSpacing: 1,
-        fontSize: "15px"
+        p: 2,
+        borderRadius: "18px",
+        border: "1px solid #dbe4e6",
+        background: "#eef7f8",
+        height: "100%",
       }}
     >
-      {title}
-    </Box>
+      <Typography
+        sx={{
+          fontWeight: 800,
+          fontSize: {
+            xs: "24px",
+            sm: "28px",
+          },
+          color: "#111827",
+        }}
+      >
+        {title}
+      </Typography>
 
+      <Typography
+        sx={{
+          fontSize: "12px",
+          color: "#6b7280",
+          mb: 3,
+          mt: 0.5,
+        }}
+      >
+        OPEN - CLOSE
+      </Typography>
+
+      <Typography
+        sx={{
+          fontWeight: 800,
+          color: "#005f73",
+          mb: 2,
+          fontSize: {
+            xs: "20px",
+            sm: "24px",
+          },
+        }}
+      >
+        {subtitle}
+      </Typography>
+
+      <Stack spacing={1.8}>
+        {data.map((time, index) => (
+          <Paper
+            key={index}
+            elevation={0}
+            sx={{
+              p: 1.5,
+              borderRadius: "14px",
+              border: "1px solid #d9d9d9",
+              background: "#ffffff",
+            }}
+          >
+            <Stack
+              direction="row"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                  fontSize: {
+                    xs: "14px",
+                    sm: "16px",
+                  },
+                }}
+              >
+                {time}
+              </Typography>
+
+              <Button
+                sx={chartBtnStyle}
+                onClick={() => navigate(route)}
+              >
+                View
+              </Button>
+            </Stack>
+          </Paper>
+        ))}
+      </Stack>
+    </Paper>
   );
 
   return (
+    <Box
+      sx={{
+        background: "#eef7f8",
+        minHeight: "100vh",
+        py: { xs: 3, md: 5 },
+      }}
+    >
+      <Container maxWidth="lg">
+        {/* Main Chart Section */}
+        <Paper
+          elevation={0}
+          sx={{
+            p: {
+              xs: 2,
+              sm: 3,
+            },
+            borderRadius: "20px",
+            border: "1px solid #dbe4e6",
+            background: "#eef7f8",
+          }}
+        >
+          <Typography
+            sx={{
+              fontWeight: 800,
+              fontSize: {
+                xs: "24px",
+                sm: "30px",
+              },
+              mb: 3,
+              color: "#111827",
+            }}
+          >
+            Chart
+          </Typography>
 
-    <Box sx={{ background: "#f5f5f5", pb: 6 }}>
+          <Stack spacing={2}>
+            {pannaCharts.map((item, index) => (
+              <ChartRow key={index} title={item} />
+            ))}
+          </Stack>
+        </Paper>
 
-      {/* STARLINE */}
-      <SectionHeader title="STARLINE CHARTS" />
+        {/* Bottom Cards */}
+        <Grid container spacing={3} sx={{ mt: 1 }}>
+          <Grid item size={{xs:12 , sm:6}}>
+            <TimeChartCard
+              title="Starline Chart"
+              subtitle="ALL STARLINE CHART"
+              data={starlineCharts}
+              route="/bharat-starline-pana"
+            />
+          </Grid>
 
-      <Box sx={{ p:2 }}>
-        <ChartButton
-          text="BHARAT STARLINE PANNA CHART"
-          onClick={() => navigate("/bharat-starline-pana")}
-        />
-      </Box>
-
-      {/* JACKPOT */}
-      <SectionHeader title="JACKPOT CHARTS" />
-
-      <Box sx={{ p: 2 }}>
-        <ChartButton
-          text="BHARAT JACKPOT CHART"
-          onClick={() => navigate("/bharat-jackpot")}
-        />
-      </Box>
-
-      {/* PANNA */}
-      <SectionHeader title="PANNA CHARTS" />
-
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: {
-            xs: "1fr 1fr",
-            sm: "repeat(3,1fr)",
-            md: "repeat(5,1fr)"
-          },
-          gap: 2,
-          p: 2
-        }}
-      >
-
-        {pannaCharts.map((item, i) => (
-
-          <ChartButton
-            key={i}
-            text={item}
-            onClick={() =>
-              navigate(`/pana-chart/${item.toLowerCase().replace(/\s+/g,"-")}`)
-            }
-          />
-
-        ))}
-
-      </Box>
-
-      {/* JODI */}
-      <SectionHeader title="JODI CHARTS" />
-
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: {
-            xs: "1fr 1fr",
-            sm: "repeat(3,1fr)",
-            md: "repeat(5,1fr)"
-          },
-          gap: 2,
-          p: 2
-        }}
-      >
-
-        {pannaCharts.map((item, i) => (
-
-          <ChartButton
-            key={i}
-            text={item}
-            onClick={() =>
-              navigate(`/jodi-chart/${item.toLowerCase().replace(/\s+/g,"-")}`)
-            }
-          />
-
-        ))}
-
-      </Box>
-
+          <Grid item size={{xs:12 , sm:6}}>
+            <TimeChartCard
+              title="Jackpot Chart"
+              subtitle="ALL JACKPOT CHART"
+              data={jackpotCharts}
+              route="/bharat-jackpot"
+            />
+          </Grid>
+        </Grid>
+      </Container>
     </Box>
-
   );
 }

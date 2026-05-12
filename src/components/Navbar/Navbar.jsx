@@ -1,261 +1,179 @@
-import {
-  Box,
-  Button,
-  Typography,
-  IconButton,
-  Drawer
-} from "@mui/material";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import { useState, useEffect, useCallback } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import GetAppRoundedIcon from "@mui/icons-material/GetAppRounded";
+import BarChartRoundedIcon from "@mui/icons-material/BarChartRounded";
+import ShowChartRoundedIcon from "@mui/icons-material/ShowChartRounded";
+import StorefrontRoundedIcon from "@mui/icons-material/StorefrontRounded";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import SportsEsportsOutlinedIcon from "@mui/icons-material/SportsEsportsOutlined";
+import logo from "/logo.png";
+import "./Navbar.css";
 
-const menuItems = ["Register", "How to Play", "Charts", "About Us"];
+const navItems = [
+  { label: "Charts", path: "/charts", icon: <BarChartRoundedIcon /> },
+  { label: "Rates", path: "/", icon: <ShowChartRoundedIcon /> },
+  { label: "Markets", path: "/", icon: <StorefrontRoundedIcon /> },
+  { label: "About Us", path: "/about", icon: <InfoOutlinedIcon /> },
+  { label: "How To Play", path: "/how-to-play", icon: <SportsEsportsOutlinedIcon /> },
+];
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
-  const [activeButton, setActiveButton] = useState(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const navigate = useNavigate();
-  
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
+  const location = useLocation();
 
-  const handleMenuClick = (item, event) => {
-    const button = event.currentTarget;
-    button.style.animation = "jelly 0.5s ease";
-    
-    setTimeout(() => {
-      button.style.animation = "";
-    }, 500);
+  const toggleDrawer = useCallback(() => {
+    setDrawerOpen((prev) => !prev);
+  }, []);
 
-    setTimeout(() => {
-      if (item === "Register") navigate("/register");
-      if (item === "Charts") navigate("/charts");
-      if (item === "How to Play") navigate("/how-to-play");
-      if (item === "About Us") navigate("/about");
-      setOpen(false);
-    }, 200);
-  };
+  const handleNav = useCallback(
+    (path) => {
+      navigate(path);
+      setDrawerOpen(false);
+    },
+    [navigate]
+  );
+
+  // Lock body scroll when drawer is open
+  useEffect(() => {
+    if (drawerOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [drawerOpen]);
+
+  // Close drawer on ESC key
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === "Escape") setDrawerOpen(false);
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, []);
 
   return (
     <>
-      {/* NAVBAR */}
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-        px={{ xs: 2, md: 5 }}
-        py={2}
-        bgcolor="#f5f5f5"
-        sx={{
-          position: "sticky",
-          top: 0,
-          zIndex: 999,
-          boxShadow: "0 2px 10px rgba(0,0,0,0.3)"
-        }}
-      >
+      {/* ===== DESKTOP NAVBAR ===== */}
+      <nav className="navbar" id="main-navbar">
         {/* Logo */}
-        <Typography
-          variant="h4"
-          onClick={() => navigate("/")}
-          sx={{
-            fontWeight: 700,
-            fontSize: { xs: "22px", md: "32px" },
-            cursor: "pointer",
-            transition: "all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)",
-            "&:hover": {
-              transform: "scale(1.1)",
-              textShadow: "0 0 15px rgba(242,140,40,0.5)"
-            },
-            "&:active": {
-              transform: "scale(0.9)"
-            }
-          }}
+        <div
+          className="navbar__logo"
+          onClick={() => handleNav("/")}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === "Enter" && handleNav("/")}
+          aria-label="Go to homepage"
         >
-          <span style={{ color: "#f28c28" }}>Bharat</span>{" "}
-          <span style={{ color: "#1a7f37" }}>Matka</span>
-        </Typography>
+          <img
+            className="navbar__logo-icon"
+            src={logo}
+            alt="Laksh365 logo"
+            width={'150px'}
+            height={'40px'}
+          />
+          {/* <span className="navbar__logo-text">
+            Laksh<span>365</span>
+          </span> */}
+        </div>
 
-        {/* DESKTOP MENU */}
-        <Box display={{ xs: "none", md: "flex" }} gap={2}>
-          {menuItems.map((item) => (
-            <Button
-              key={item}
-              onClick={(e) => handleMenuClick(item, e)}
-              sx={{
-                textTransform: "none",
-                borderRadius: "30px",
-                padding: "8px 22px",
-                background: "#fff",
-                color: "#1e2a78",
-                fontWeight: 600,
-                boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                transition: "all 0.2s ease",
-                animation: activeButton === item ? "jelly 0.5s ease" : "none",
-                "&:hover": {
-                  background: "#f28c28",
-                  color: "#fff",
-                  transform: "translateY(-2px) scale(1.05)",
-                  boxShadow: "0 8px 20px rgba(242,140,40,0.4)"
-                },
-                "&:active": {
-                  animation: "jelly 0.3s ease",
-                  background: "#f28c28",
-                  color: "#fff"
-                }
-              }}
-            >
-              {item}
-            </Button>
+        {/* Desktop Nav Links */}
+        <ul className="navbar__links">
+          {navItems.map((item) => (
+            <li key={item.label} style={{ listStyle: "none" }}>
+              <button
+                className={`navbar__link${
+                  location.pathname === item.path ? " navbar__link--active" : ""
+                }`}
+                onClick={() => handleNav(item.path)}
+                aria-label={item.label}
+              >
+                {item.label}
+              </button>
+            </li>
           ))}
+        </ul>
 
-          <IconButton
-            sx={{
-              background: "#25D366",
-              color: "#fff",
-              width: 42,
-              height: 42,
-              transition: "all 0.2s ease",
-              "&:hover": {
-                background: "#128C7E",
-                transform: "rotate(10deg) scale(1.15)",
-                boxShadow: "0 8px 20px rgba(37,211,102,0.4)"
-              },
-              "&:active": {
-                animation: "jelly 0.3s ease",
-                background: "#128C7E"
-              }
-            }}
-          >
-            <WhatsAppIcon />
-          </IconButton>
-        </Box>
+        {/* Download App CTA */}
+        <button className="navbar__cta" aria-label="Download App">
+          <GetAppRoundedIcon className="navbar__cta-icon" />
+          Download App
+        </button>
 
-        {/* MOBILE MENU ICON */}
-        <IconButton
+        {/* Hamburger (mobile) */}
+        <button
+          className="navbar__hamburger"
           onClick={toggleDrawer}
-          sx={{ 
-            display: { xs: "flex", md: "none" },
-            transition: "all 0.2s ease",
-            "&:hover": {
-              transform: "rotate(90deg) scale(1.1)",
-              background: "#f28c28",
-              color: "#fff"
-            },
-            "&:active": {
-              animation: "jelly 0.3s ease"
-            }
-          }}
+          aria-label="Open navigation menu"
+          aria-expanded={drawerOpen}
         >
           <MenuIcon />
-        </IconButton>
-      </Box>
+        </button>
+      </nav>
 
-      {/* TOP DRAWER MENU */}
-      <Drawer
-        anchor="top"
-        open={open}
-        onClose={toggleDrawer}
-        transitionDuration={500}
-        sx={{
-          "& .MuiDrawer-paper": {
-            height: "380px",
-            borderBottomLeftRadius: "20px",
-            borderBottomRightRadius: "20px",
-            padding: 1.5,
-            background: "linear-gradient(145deg, #f5f5f5 0%, #ffffff 100%)",
-            animation: open ? "slideDown 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)" : "none"
-          }
-        }}
+      {/* ===== MOBILE OVERLAY ===== */}
+      <div
+        className={`navbar__overlay${drawerOpen ? " navbar__overlay--open" : ""}`}
+        onClick={toggleDrawer}
+        aria-hidden="true"
+      />
+
+      {/* ===== MOBILE DRAWER ===== */}
+      <aside
+        className={`navbar__drawer${drawerOpen ? " navbar__drawer--open" : ""}`}
+        aria-label="Mobile navigation"
       >
-        {/* CLOSE BUTTON */}
-        <Box display="flex" justifyContent="flex-end">
-          <IconButton 
+        {/* Drawer Header */}
+        <div className="navbar__drawer-header">
+          <div className="navbar__drawer-logo">
+            <img
+              className="navbar__drawer-logo-icon"
+              src={logo}
+              alt="Laksh365 logo"
+              width={'140px'}
+              height={'40px'}
+            />
+            {/* <span className="navbar__drawer-logo-text">
+              Laksh<span>365</span>
+            </span> */}
+          </div>
+          <button
+            className="navbar__drawer-close"
             onClick={toggleDrawer}
-            sx={{
-              transition: "all 0.2s ease",
-              "&:hover": {
-                transform: "rotate(90deg) scale(1.1)",
-                background: "#f28c28",
-                color: "#fff"
-              },
-              "&:active": {
-                animation: "jelly 0.3s ease"
-              }
-            }}
+            aria-label="Close navigation menu"
           >
-            <CloseIcon />
-          </IconButton>
-        </Box>
+            <CloseIcon fontSize="small" />
+          </button>
+        </div>
 
-        {/* MENU ITEMS */}
-        <Box
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          gap={2}
-          mt={2}
-        >
-          {menuItems.map((item, index) => (
-            <Button
-              key={item}
-              onClick={(e) => handleMenuClick(item, e)}
-              sx={{
-                textTransform: "none",
-                borderRadius: "30px",
-                padding: "10px 30px",
-                background: "#fff",
-                color: "#1e2a78",
-                fontWeight: 600,
-                boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                width: "200px",
-                transition: "all 0.2s ease",
-                animation: open ? `fadeInUp 0.5s ${index * 0.1}s cubic-bezier(0.68, -0.55, 0.265, 1.55) both` : "none",
-                "&:hover": {
-                  background: "#f28c28",
-                  color: "#fff",
-                  transform: "translateY(-2px) scale(1.05)",
-                  boxShadow: "0 8px 20px rgba(242,140,40,0.4)"
-                },
-                "&:active": {
-                  animation: "jelly 0.3s ease",
-                  background: "#f28c28",
-                  color: "#fff"
-                }
-              }}
-            >
-              {item}
-            </Button>
+        {/* Drawer Nav Items */}
+        <ul className="navbar__drawer-nav">
+          {navItems.map((item) => (
+            <li key={item.label} style={{ listStyle: "none" }}>
+              <button
+                className="navbar__drawer-link"
+                onClick={() => handleNav(item.path)}
+              >
+                {item.icon}
+                {item.label}
+              </button>
+            </li>
           ))}
+        </ul>
 
-          <IconButton
-            sx={{
-              background: "#25D366",
-              color: "#fff",
-              width: 50,
-              height: 50,
-              mt: 1,
-              transition: "all 0.2s ease",
-              animation: open ? "fadeInUp 0.5s 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) both" : "none",
-              "&:hover": {
-                background: "#128C7E",
-                transform: "rotate(10deg) scale(1.15)",
-                boxShadow: "0 8px 20px rgba(37,211,102,0.4)"
-              },
-              "&:active": {
-                animation: "jelly 0.3s ease",
-                background: "#128C7E"
-              }
-            }}
-          >
-            <WhatsAppIcon />
-          </IconButton>
-        </Box>
-      </Drawer>
-
-  
+        {/* Drawer CTA */}
+        <div className="navbar__drawer-cta-wrapper">
+          <button className="navbar__drawer-cta">
+            <GetAppRoundedIcon />
+            Download App
+          </button>
+        </div>
+      </aside>
     </>
   );
 }

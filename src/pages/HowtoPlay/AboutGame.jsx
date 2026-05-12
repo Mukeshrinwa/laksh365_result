@@ -1,175 +1,297 @@
-import { Box, Typography } from "@mui/material";
+import React from "react";
+import {
+  Box,
+  Typography,
+  Container,
+  Grid,
+  Paper,
+  Stack,
+} from "@mui/material";
+
+import PersonAddAlt1OutlinedIcon from "@mui/icons-material/PersonAddAlt1Outlined";
+import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
+import SportsEsportsOutlinedIcon from "@mui/icons-material/SportsEsportsOutlined";
+import PlayCircleOutlineOutlinedIcon from "@mui/icons-material/PlayCircleOutlineOutlined";
+import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
+import CreditCardOutlinedIcon from "@mui/icons-material/CreditCardOutlined";
+import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
+
+const steps = [
+  {
+    icon: <PersonAddAlt1OutlinedIcon />,
+    title: "1. Create An Account",
+    color: "#2563eb",
+    bg: "#dbeafe",
+    points: [
+      "Open The Laksh365 App Or Visit Our Website.",
+      "Register Using Your Mobile Number And Set A Secure Password.",
+      "Verify Your Number Using The OTP Sent To You.",
+    ],
+  },
+
+  {
+    icon: <AccountBalanceWalletOutlinedIcon />,
+    title: "2. Add Funds To Your Wallet",
+    color: "#16a34a",
+    bg: "#dcfce7",
+    points: [
+      "Go To The Add Funds Section.",
+      "Select A Payment Method And Complete The Transaction.",
+      "Funds Appear Instantly In Your Wallet — You're Ready To Play.",
+    ],
+  },
+
+  {
+    icon: <SportsEsportsOutlinedIcon />,
+    title: "3. Choose A Market & Game",
+    color: "#9333ea",
+    bg: "#f3e8ff",
+    points: [
+      "Select From Available Markets (For Example: Supreme Night, Morning, Etc.) And Pick The Game Type You Prefer.",
+      "Open / Close — Pick A Single Digit Or Two-Digit Number.",
+      "Sangam — Combination Plays With Higher Payouts.",
+      "Custom Games — Special Formats Available On The App.",
+    ],
+  },
+
+  {
+    icon: <PlayCircleOutlineOutlinedIcon />,
+    title: "4. Place Your Bet",
+    color: "#0f766e",
+    bg: "#ccfbf1",
+    points: [
+      "Enter The Number You Want To Bet On.",
+      "Choose The Bet Type (Open, Close, Sangam, Etc.).",
+      "Enter Your Stake (The Amount You Want To Bet).",
+      "Confirm The Bet — It Will Be Recorded Immediately.",
+      "Tip: Double-Check Market Timing And Your Selected Number Before Confirming. Bets Cannot Be Changed After Confirmation.",
+    ],
+  },
+
+  {
+    icon: <EmojiEventsOutlinedIcon />,
+    title: "5. Result & Payouts",
+    color: "#ca8a04",
+    bg: "#fef3c7",
+    points: [
+      "When Results Are Declared:",
+      "Winning Bets Are Credited Automatically To Your Wallet.",
+      "Payout Multiples Depend On The Market And Bet Type. Check The Payout Table In The App For Exact Rates.",
+    ],
+  },
+
+  {
+    icon: <CreditCardOutlinedIcon />,
+    title: "6. Withdraw Funds",
+    color: "#db2777",
+    bg: "#fce7f3",
+    points: [
+      "Go To The Withdraw Section In Your Account.",
+      "Enter Bank Details And The Amount To Withdraw.",
+      "Submit The Withdrawal Request. Processing Times May Vary.",
+    ],
+  },
+];
 
 export default function AboutGame() {
   return (
-    <Box sx={{ background: "#f5f5f5", py: 6, px: 2 }}>
-
-      {/* MAIN HEADING */}
-      <Typography
-        textAlign="center"
-        sx={{
-          fontSize: { xs: "28px", md: "36px" },
-          fontWeight: 700,
-          color: "#2f3e8f",
-          mb: 4
-        }}
-      >
-        About the Game
-      </Typography>
-
-      {/* CONTENT CARD */}
-      <Box
-        sx={{
-          maxWidth: "1100px",
-          margin: "auto",
-          background: "#fff",
-          borderRadius: "10px",
-          padding: { xs: 3, md: 5 },
-          boxShadow: "0 5px 20px rgba(0,0,0,0.08)",
-          lineHeight: 1.8
-        }}
-      >
-
-        <Typography mb={3}>
-          Satta is a broad word to describe “betting” in India or Hindi. The Matka
-          game is sometimes referred to as Indian Satta Matka because of its early
-          popularity. If you are interested in betting games, you can check out the
-          numbers game. The game of online satta matka is pretty simple to
-          understand and play.
-        </Typography>
-
-        <Typography mb={4}>
-          With very little study and effort you can become an online matka play
-          king and earn huge amounts. The Kalyan matka game was the first online
-          matka market introduced by Kalyanji Bhagat in 1962 and the online
-          matka Worli market was introduced in the 70’s by Ratan Khatri.
-        </Typography>
-
-        {/* HOW TO PLAY */}
-        <Typography
-          sx={{ fontSize: "24px", fontWeight: 700, color: "#2f3e8f", mb: 2 }}
+    <Box
+      sx={{
+        background: "#eef7f8",
+        minHeight: "100vh",
+        py: { xs: 3, md: 5 },
+      }}
+    >
+      <Container maxWidth="lg">
+        {/* Top Welcome Card */}
+        <Paper
+          elevation={0}
+          sx={{
+            p: {
+              xs: 2.5,
+              sm: 3,
+              md: 4,
+            },
+            borderRadius: "18px",
+            border: "1px solid #dbe4e6",
+            background: "#ffffff",
+            mb: 3,
+          }}
         >
-          This is how you play matka on Bharat Matka:
-        </Typography>
+          <Typography
+            sx={{
+              fontSize: {
+                xs: "28px",
+                sm: "36px",
+              },
+              fontWeight: 800,
+              color: "#111827",
+              lineHeight: 1.2,
+            }}
+          >
+            Welcome To Laksh365
+          </Typography>
 
-        <Box component="ol" sx={{ pl: 3, mb: 4 }}>
-          <li>
-            Step 1 is to pick (3) numbers from 0–9. Example: 3,5,6.
-            Add them together (3+5+6) which equals 14 and keep the last digit (4).
-            First draw becomes: <b>3,5,6 *4</b>.
-          </li>
+          <Typography
+            sx={{
+              mt: 1.5,
+              color: "#4b5563",
+              fontSize: {
+                xs: "14px",
+                sm: "16px",
+              },
+              lineHeight: 1.8,
+            }}
+          >
+            Play Safely And Enjoy A Smooth Matka Experience. Follow These
+            Simple Steps To Start Placing Bets And Winning.
+          </Typography>
+        </Paper>
 
-          <li>
-            The second set of numbers is drawn the same way.
-            Example: 2,6,8 = 16 → last digit 6.
-            Second draw becomes: <b>2,6,8 *6</b>.
-          </li>
+        {/* Steps Grid */}
+        <Grid container spacing={3}>
+          {steps.map((step, index) => (
+            <Grid item size={{ xs: 12, sm: 6, md: 6 }} key={index}>
+              <Paper
+                elevation={0}
+                sx={{
+                  p: 3,
+                  borderRadius: "18px",
+                  border: "1px solid #dbe4e6",
+                  background: "#ffffff",
+                  height: "100%",
+                  transition: "0.3s",
 
-          <li>
-            Final card looks like: <b>3,5,6 *4 X 2,6,8 *6</b>.
-          </li>
-        </Box>
+                  "&:hover": {
+                    transform: "translateY(-4px)",
+                    boxShadow: "0 10px 25px rgba(0,0,0,0.06)",
+                  },
+                }}
+              >
+                {/* Header */}
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  alignItems="flex-start"
+                >
+                  {/* Icon */}
+                  <Box
+                    sx={{
+                      minWidth: 46,
+                      width: 46,
+                      height: 46,
+                      borderRadius: "14px",
+                      background: step.bg,
+                      color: step.color,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {step.icon}
+                  </Box>
 
-        {/* ADD MONEY */}
-        <Typography
-          sx={{ fontSize: "24px", fontWeight: 700, color: "#2f3e8f", mb: 2 }}
+                  {/* Content */}
+                  <Box>
+                    <Typography
+                      sx={{
+                        fontWeight: 800,
+                        color: "#111827",
+                        fontSize: {
+                          xs: "18px",
+                          sm: "20px",
+                        },
+                        mb: 1,
+                      }}
+                    >
+                      {step.title}
+                    </Typography>
+
+                    <Stack spacing={0.8}>
+                      {step.points.map((point, i) => (
+                        <Typography
+                          key={i}
+                          sx={{
+                            color: "#4b5563",
+                            fontSize: {
+                              xs: "14px",
+                              sm: "15px",
+                            },
+                            lineHeight: 1.8,
+                          }}
+                        >
+                          {point}
+                        </Typography>
+                      ))}
+                    </Stack>
+                  </Box>
+                </Stack>
+              </Paper>
+            </Grid>
+          ))}
+        </Grid>
+
+        {/* Bottom Help Section */}
+        <Paper
+          elevation={0}
+          sx={{
+            mt: 3,
+            p: {
+              xs: 2.5,
+              sm: 3,
+            },
+            borderRadius: "18px",
+            background:
+              "linear-gradient(135deg, #2b6cb0 0%, #2563eb 100%)",
+            color: "#fff",
+          }}
         >
-          How to add money in Bharat Matka?
-        </Typography>
+          <Stack direction="row" spacing={2} alignItems="center">
+            <Box
+              sx={{
+                width: 48,
+                height: 48,
+                borderRadius: "14px",
+                background: "rgba(255,255,255,0.18)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <HelpOutlineOutlinedIcon />
+            </Box>
 
-        <Box component="ol" sx={{ pl: 3, mb: 4 }}>
-          <li>Minimum Deposit is 100 Rs</li>
-          <li>Minimum Withdraw is 500 Rs</li>
-          <li>Maximum Withdraw is 1 Lakh per day</li>
-          <li>Withdrawal request time: 11 AM – 11 PM (All 7 days)</li>
-          <li>Money credited within 10–30 minutes</li>
-          <li>Withdraw available on Saturday & Sunday</li>
-          <li>Withdraw not available on festivals</li>
-          <li>1 point = Rs.1</li>
-        </Box>
+            <Box>
+              <Typography
+                sx={{
+                  fontWeight: 800,
+                  fontSize: {
+                    xs: "20px",
+                    sm: "24px",
+                  },
+                }}
+              >
+                Need Help?
+              </Typography>
 
-        {/* GUIDE */}
-        <Typography
-          sx={{ fontSize: "24px", fontWeight: 700, color: "#2f3e8f", mb: 2 }}
-        >
-          Satta Matka Guide – How To Play & Win Money?
-        </Typography>
-
-        <Typography mb={4}>
-          Satta is a broad word describing betting in India. The Matka game
-          became popular because players could easily participate by selecting
-          numbers. The concept is simple: select numbers and check if they match
-          the winning result.
-        </Typography>
-
-        {/* WHAT IS SATTA BAZAR */}
-        <Typography
-          sx={{ fontSize: "22px", fontWeight: 700, color: "#2f3e8f", mb: 2 }}
-        >
-          What is SATTA BAZAR?
-        </Typography>
-
-        <Typography mb={4}>
-          Satta bazar means betting market. Indians enjoy betting activities and
-          Satta Matka became a lottery-style number game where players select
-          numbers hoping they match the winning combination.
-        </Typography>
-
-        {/* MATKA SATTA */}
-        <Typography
-          sx={{ fontSize: "22px", fontWeight: 700, color: "#2f3e8f", mb: 2 }}
-        >
-          What is MATKA SATTA?
-        </Typography>
-
-        <Typography mb={4}>
-          Matka satta is one of the most popular betting formats in India.
-          Traditionally, slips were drawn from an earthen pot called "Matka".
-          The leader of the matka gambling syndicate was known as the Matka King.
-          Famous games include Kalyan and Worli.
-        </Typography>
-
-        {/* HOW TO WIN */}
-        <Typography
-          sx={{ fontSize: "22px", fontWeight: 700, color: "#2f3e8f", mb: 2 }}
-        >
-          How Do You Win At Matka?
-        </Typography>
-
-        <Typography mb={4}>
-          To win at Matka Satta, payouts range from 9/1 to 999/1 depending on
-          the bet type. However, it is purely a game of chance and luck plays
-          the biggest role in winning.
-        </Typography>
-
-        {/* HISTORY */}
-        <Typography
-          sx={{ fontSize: "22px", fontWeight: 700, color: "#2f3e8f", mb: 2 }}
-        >
-          History of SATTA MATKA
-        </Typography>
-
-        <Typography mb={4}>
-          Matka gambling began when people wagered on the daily cotton prices
-          from the New York Cotton Exchange. Over time it evolved into a number
-          lottery game. Ratan Khatri became famously known as the Matka King.
-        </Typography>
-
-        {/* CONCLUSION */}
-        <Typography
-          sx={{ fontSize: "22px", fontWeight: 700, color: "#2f3e8f", mb: 2 }}
-        >
-          Conclusion on SATTA MATKA
-        </Typography>
-
-        <Typography>
-          Even today enthusiasts play this game remembering the days when
-          celebrities used to draw numbers. While the popularity has declined,
-          betting culture still exists with modern online betting platforms
-          and IPL cricket betting attracting large audiences.
-        </Typography>
-
-      </Box>
+              <Typography
+                sx={{
+                  mt: 0.5,
+                  opacity: 0.95,
+                  lineHeight: 1.8,
+                  fontSize: {
+                    xs: "14px",
+                    sm: "15px",
+                  },
+                }}
+              >
+                Visit The Help & Support Section Or Contact Our 24/7 Support
+                Team Through The App's Chat.
+              </Typography>
+            </Box>
+          </Stack>
+        </Paper>
+      </Container>
     </Box>
   );
 }
