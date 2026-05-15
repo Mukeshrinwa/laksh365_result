@@ -8,6 +8,7 @@ import {
 
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import BarChartIcon from "@mui/icons-material/BarChart";
+import { useNavigate } from "react-router";
 
 const results = [
   { time: "10:00 AM", number: "588-1" },
@@ -27,6 +28,7 @@ const results = [
 ];
 
 export default function StarlineResults() {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -168,6 +170,7 @@ export default function StarlineResults() {
       <Button
         fullWidth
         startIcon={<BarChartIcon />}
+        onClick={() => navigate("/starline-pana")}
         sx={{
           mt: 4,
           background: "#1d66c2",

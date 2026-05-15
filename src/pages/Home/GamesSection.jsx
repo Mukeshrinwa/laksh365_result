@@ -14,6 +14,7 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import DownloadIcon from "@mui/icons-material/Download";
 import CloseIcon from "@mui/icons-material/Close";
+import { useNavigate } from "react-router";
 
 const games = [
   {
@@ -61,7 +62,7 @@ const games = [
 export default function MarketResults() {
   const [openModal, setOpenModal] = useState(false);
   const [selectedGame, setSelectedGame] = useState(null);
-
+ const navigate=useNavigate();
   const handleOpenModal = (game) => {
     setSelectedGame(game);
     setOpenModal(true);
@@ -207,6 +208,7 @@ export default function MarketResults() {
               {/* Jodi */}
               <Button
                 startIcon={<BarChartIcon />}
+                onClick={() => navigate(`jodi-chart/${game.name}`)}
                 sx={{
                   background: "#b8f1e6",
                   color: "#0f766e",
@@ -227,6 +229,7 @@ export default function MarketResults() {
               {/* Pana */}
               <Button
                 startIcon={<BarChartIcon />}
+                onClick={() => navigate(`/pana-chart/${game.name}`)}
                 sx={{
                   background: "#f2f4f7",
                   color: "#111827",

@@ -253,7 +253,7 @@ export default function ChartsPage() {
               title="Starline Chart"
               subtitle="ALL STARLINE CHART"
               data={starlineCharts}
-              route="/bharat-starline-pana"
+              route="/starline-pana"
             />
           </Grid>
 
@@ -262,7 +262,7 @@ export default function ChartsPage() {
               title="Jackpot Chart"
               subtitle="ALL JACKPOT CHART"
               data={jackpotCharts}
-              route="/bharat-jackpot"
+              route="/jackpot"
             />
           </Grid>
         </Grid>
