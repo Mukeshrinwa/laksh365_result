@@ -311,6 +311,11 @@
   transform: scale(0.97);
 }
 
+.navbar__drawer-link--active {
+  background: rgba(78, 124, 255, 0.15);
+  color: #ffffff;
+}
+
 .navbar__drawer-link svg {
   font-size: 1.2rem;
   color: #4e7cff;

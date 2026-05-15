@@ -121,6 +121,7 @@ export default function GameRates() {
 
   return (
     <Box
+      id="rates-section"
       sx={{
         background: "#edf3f3",
         py: { xs: 5, md: 8 },

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
@@ -13,28 +13,88 @@ import "./Navbar.css";
 
 const navItems = [
   { label: "Charts", path: "/charts", icon: <BarChartRoundedIcon /> },
-  { label: "Rates", path: "/", icon: <ShowChartRoundedIcon /> },
-  { label: "Markets", path: "/", icon: <StorefrontRoundedIcon /> },
+  { label: "Rates", path: "/", scrollTo: "rates-section", icon: <ShowChartRoundedIcon /> },
+  { label: "Markets", path: "/", scrollTo: "markets-section", icon: <StorefrontRoundedIcon /> },
   { label: "About Us", path: "/about", icon: <InfoOutlinedIcon /> },
   { label: "How To Play", path: "/how-to-play", icon: <SportsEsportsOutlinedIcon /> },
 ];
 
 export default function Navbar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const pendingScrollRef = useRef(null);
 
   const toggleDrawer = useCallback(() => {
     setDrawerOpen((prev) => !prev);
   }, []);
 
+  // Scroll to a section element with offset for the navbar
+  const scrollToSection = useCallback((sectionId) => {
+    const el = document.getElementById(sectionId);
+    if (el) {
+      const navbarHeight = document.getElementById("main-navbar")?.offsetHeight || 70;
+      const top = el.getBoundingClientRect().top + window.scrollY - navbarHeight - 10;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
+  }, []);
+
   const handleNav = useCallback(
-    (path) => {
-      navigate(path);
+    (item) => {
+      const { path, scrollTo } = item;
+
+      if (scrollTo) {
+        // Set active only on explicit click
+        setActiveSection(scrollTo);
+
+        // If already on homepage, just scroll
+        if (location.pathname === "/") {
+          scrollToSection(scrollTo);
+        } else {
+          // Navigate to homepage, then scroll after mount
+          pendingScrollRef.current = scrollTo;
+          navigate(path);
+        }
+      } else {
+        // Clear scroll-based active when navigating to a different page
+        setActiveSection(null);
+        navigate(path);
+      }
       setDrawerOpen(false);
     },
-    [navigate]
+    [navigate, location.pathname, scrollToSection]
   );
+
+  // After navigating to homepage, scroll to the pending section
+  useEffect(() => {
+    if (location.pathname === "/" && pendingScrollRef.current) {
+      const sectionId = pendingScrollRef.current;
+      pendingScrollRef.current = null;
+      // Small delay to let the page render
+      const timer = setTimeout(() => {
+        scrollToSection(sectionId);
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [location.pathname, scrollToSection]);
+
+  // Clear scroll-based active state when navigating away from homepage
+  useEffect(() => {
+    if (location.pathname !== "/") {
+      setActiveSection(null);
+    }
+  }, [location.pathname]);
+
+  // Determine if a nav item is active
+  const isActive = (item) => {
+    if (item.scrollTo) {
+      // For scroll-based items, only active when explicitly clicked
+      return location.pathname === "/" && activeSection === item.scrollTo;
+    }
+    // For regular nav items, match pathname (but exclude "/" to avoid matching Rates/Markets)
+    return item.path !== "/" && location.pathname === item.path;
+  };
 
   // Lock body scroll when drawer is open
   useEffect(() => {
@@ -64,10 +124,10 @@ export default function Navbar() {
         {/* Logo */}
         <div
           className="navbar__logo"
-          onClick={() => handleNav("/")}
+          onClick={() => handleNav({ path: "/", label: "Home" })}
           role="button"
           tabIndex={0}
-          onKeyDown={(e) => e.key === "Enter" && handleNav("/")}
+          onKeyDown={(e) => e.key === "Enter" && handleNav({ path: "/", label: "Home" })}
           aria-label="Go to homepage"
         >
           <img
@@ -88,9 +148,9 @@ export default function Navbar() {
             <li key={item.label} style={{ listStyle: "none" }}>
               <button
                 className={`navbar__link${
-                  location.pathname === item.path ? " navbar__link--active" : ""
+                  isActive(item) ? " navbar__link--active" : ""
                 }`}
-                onClick={() => handleNav(item.path)}
+                onClick={() => handleNav(item)}
                 aria-label={item.label}
               >
                 {item.label}
@@ -156,8 +216,10 @@ export default function Navbar() {
           {navItems.map((item) => (
             <li key={item.label} style={{ listStyle: "none" }}>
               <button
-                className="navbar__drawer-link"
-                onClick={() => handleNav(item.path)}
+                className={`navbar__drawer-link${
+                  isActive(item) ? " navbar__drawer-link--active" : ""
+                }`}
+                onClick={() => handleNav(item)}
               >
                 {item.icon}
                 {item.label}

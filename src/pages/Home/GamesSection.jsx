@@ -73,6 +73,7 @@ export default function MarketResults() {
 
   return (
     <Box
+      id="markets-section"
       sx={{
         background: "#eef6f6",
         py: { xs: 5, md: 8 },
