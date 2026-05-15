@@ -27,7 +27,7 @@ export default function BharatJackpot() {
         color="#2e3c91"
         mb={1}
       >
-        Bharat Jackpot
+        Laksh365 Jackpot
       </Typography>
 
       <Typography
@@ -36,14 +36,14 @@ export default function BharatJackpot() {
         color="#555"
         mb={3}
       >
-        Bharat Jackpot Jodi Chart Satta Matka Record Old History Historical Data Bracket Results Chart Online Live Book Digits Numbers
+        Laksh365 Jackpot Jodi Chart Satta Matka Record Old History Historical Data Bracket Results Chart Online Live Book Digits Numbers
       </Typography>
 
       {/* BUTTON */}
       <Box textAlign="center" mb={4}>
         <Button
           sx={{
-            background:"#f4a300",
+            background:"#1d8ae7",
             color:"#fff",
             px:4,
             py:1,
@@ -181,7 +181,7 @@ export default function BharatJackpot() {
             px:4,
             py:1.2,
             borderRadius:"10px",
-            background:"#f4a300",
+            background:"#1d8ae7",
             color:"#fff",
             fontWeight:600,
             textTransform:"none"

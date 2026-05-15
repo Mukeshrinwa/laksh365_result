@@ -65,7 +65,7 @@ export default function JodiChart() {
         <Button
           onClick={goBottom}
           sx={{
-            background: "#f4a300",
+            background: "#1d8ae7",
             color: "#fff",
             px: 4,
             py: 1,
@@ -109,7 +109,7 @@ export default function JodiChart() {
                   key={day}
                   component="th"
                   sx={{
-                    border: "1px solid #f4a300",
+                    border: "1px solid #1d8ae7",
                     py: { xs: 1.5, sm: 2 },
                     px: { xs: 1, sm: 2 },
                     fontSize: { xs: '0.9rem', sm: '1rem' }
@@ -130,7 +130,7 @@ export default function JodiChart() {
                     component="td"
                     key={j}
                     sx={{
-                      border: "1px solid #f4a300",
+                      border: "1px solid #1d8ae7",
                       py: { xs: 1.5, sm: 2 },
                       px: { xs: 1, sm: 2 },
                       fontSize: { xs: '1rem', sm: '1.25rem', md: '1.5rem' },
@@ -192,7 +192,7 @@ export default function JodiChart() {
             px: 4,
             py: 1.2,
             borderRadius: "10px",
-            background: "#f4a300",
+            background: "#1d8ae7",
             color: "#fff",
             fontWeight: 600,
             textTransform: "none",

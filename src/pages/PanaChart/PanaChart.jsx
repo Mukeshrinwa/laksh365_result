@@ -79,7 +79,7 @@ export default function PanaChart() {
         <Button
           onClick={goBottom}
           sx={{
-            background: "#f4a300",
+            background: "#1d8ae7",
             color: "#fff",
             px: { xs: 3, md: 4 },
             py: 1,
@@ -115,7 +115,7 @@ export default function PanaChart() {
                   component="th"
                   key={day}
                   sx={{
-                    border: "1px solid #f4a300",
+                    border: "1px solid #1d8ae7",
                     py: { xs: 1, md: 2 },
                     px: 1,
                     fontWeight: 600,
@@ -140,7 +140,7 @@ export default function PanaChart() {
                 <Box
                   component="td"
                   sx={{
-                    border: "1px solid #f4a300",
+                    border: "1px solid #1d8ae7",
                     p: { xs: 1, md: 2 },
                     background: "#fff9f0",
                     width: { xs: "120px", md: "150px" }
@@ -190,7 +190,7 @@ export default function PanaChart() {
                     component="td"
                     key={day}
                     sx={{
-                      border: "1px solid #f4a300",
+                      border: "1px solid #1d8ae7",
                       textAlign: "center",
                       py: { xs: 0.5, md: 1 }
                     }}
@@ -259,7 +259,7 @@ export default function PanaChart() {
             px: { xs: 3, md: 4 },
             py: 1,
             borderRadius: "10px",
-            background: "#f4a300",
+            background: "#1d8ae7",
             color: "#fff",
             fontSize: { xs: "13px", md: "16px" },
             "&:hover": { background: "#e69300" }

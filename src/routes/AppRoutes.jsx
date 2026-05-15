@@ -25,8 +25,8 @@ const AppRoutes = () => {
         <Route path="about" element={<AboutUs />} />
         <Route path="charts" element={<ChartsPage />} />
 
-        <Route path="bharat-starline-pana" element={<BharatstarlinePanaChart />} />
-        <Route path="bharat-jackpot" element={<BharatJackpot />} />
+        <Route path="starline-pana" element={<BharatstarlinePanaChart />} />
+        <Route path="jackpot" element={<BharatJackpot />} />
         <Route path="jodi-chart/:name" element={<JodiChart />} />
         <Route path="pana-chart/:name" element={<PanaChart />} />
 
