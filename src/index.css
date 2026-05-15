@@ -6,9 +6,9 @@
   --primary-dark: #243174;
   
   /* Secondary/Accent Colors */
-  --accent-color: #f28c28;
-  --accent-light: #ff9a00;
-  --accent-dark: #d48800;
+  --accent-color: #4a5ab5;
+  --accent-light: #4a5ab5;
+  --accent-dark: #243174;
   
   /* Success/Warning/Error */
   --success-color: #27ae60;

@@ -35,12 +35,12 @@ export default function ScrollTopButton() {
         position:"fixed",
         bottom:30,
         right:30,
-        bgcolor:"#f4a300",
+        bgcolor:"#3498db",
         color:"#fff",
         zIndex:9999,
-        boxShadow:"0 8px 20px rgba(244,163,0,0.4)",
+        boxShadow:"0 8px 20px rgba(52,152,219,0.4)",
         "&:hover":{
-          bgcolor:"#e69500"
+          bgcolor:"#2980b9"
         }
       }}
     >
